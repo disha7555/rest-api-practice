@@ -112,8 +112,39 @@ app.get("/student/name/:name",async(req,res)=>{
     }
 })
 
+app.patch("/student/:id",async(req,res)=>{
+    try{
+        const _id=req.params.id;
+        const updateData =await Student.findByIdAndUpdate(_id,req.body,{new:true});
+       
+        // if(!updateData){
+        //     return res.status(404).send();
+        // }
+        // else{
+           res.send(updateData);
+        // }
+    }
+    catch(e){
+        res.status(400).send(e);
+    }
+})
 
-
+app.delete("/student/:id",async(req,res)=>{
+    try{
+        const _id=req.params.id;
+        const deleteData =await Student.findByIdAndDelete(req.params.id);
+       
+        if(!req.params.id){
+            return res.status(400).send();
+        }
+       
+           res.send(deleteData);
+    
+    }
+    catch(e){
+        res.status(500).send(e);
+    }
+})
 
 
 
